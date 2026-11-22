@@ -169,7 +169,7 @@ form{margin-top:24px}label{display:grid;gap:5px;margin-bottom:16px;font-weight:6
 .home-invitation>img{z-index:-2;object-fit:cover;object-position:center 55%}
 .home-invitation::before{
   content:"";z-index:-1;
-  background:rgb(16 74 47 / 78%);
+  background:rgb(71 81 59 / 82%);
 }
 .home-invitation::after{
   --tile:clamp(128px,13vw,230px);
