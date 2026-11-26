@@ -32,14 +32,14 @@
   border-radius: 999px;
 }
 .method-decisions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.2rem;margin-top:3rem}
-.method-decisions article{border-top:1px solid #977456;padding-top:1.2rem}
+.method-decisions article{border:1px solid #d7ccba;padding:1.2rem}
 .method-decisions h3,.method-account h3{font-weight:400;font-size:1.4rem}
 .method-evidence{padding-block:1rem 4rem;scroll-margin:6rem}
 .method-stage{border-top:1px solid #d7ccba;padding-top:2rem;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:2rem}
 .method-stage p,.method-account p{line-height:1.6}
 .method-design{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:4rem}
 .method-evidence footer{background:transparent;color:inherit;margin-top:1rem;padding:0;font-size:.85rem}
-.method-account{background:#f2eee5;border-left:3px solid #977456;padding:clamp(1.25rem,2vw,2.4rem) clamp(1rem,3vw,2.5rem);margin:2rem 0}
+.method-account{background:#f2eee5;border:1px solid #977456;padding:clamp(1.25rem,2vw,2.4rem) clamp(1rem,3vw,2.5rem);margin:2rem 0}
 .method-account > :is(h3,p){margin-block:0}
 @media(max-width:850px){.method-calendar,.method-stage{grid-template-columns:1fr;gap:1rem}.method-stage h2{margin-bottom:0}.method-decisions{gap:1rem}}
 @media(max-width:700px){.method-decisions,.method-design{grid-template-columns:1fr}.method-chart{padding:.9rem}.method-period span{font-size:.9rem}}
@@ -76,7 +76,7 @@
 .inspection-meter i:last-child { background: #e4dfd3; }
 .status-lanes, .inspection-steps { grid-template-columns: repeat(3,minmax(0,1fr)); }
 .status-lanes article, .board-panel, .inspection-log, .family-update { padding: clamp(1.1rem,2.1vw,2rem); border-radius: 14px; }
-.status-lanes article { background: #e8ede5; border-top: 4px solid #637965; }
+.status-lanes article { background: #e8ede5; border: 1px solid #637965; }
 .status-lanes article:nth-child(2) { background: #f3e9dc; border-color: #a4744d; }
 .status-lanes article:nth-child(3) { background: #ecebe6; border-color: #8b8980; }
 .status-lanes h4, .build-path b, .inspection-steps b { font-size: .86rem; font-weight: 600; letter-spacing: .025em; }
@@ -99,7 +99,7 @@
 .oven-quotes i::before { content: ""; display: block; width: var(--delivery); height: 100%; background: #657966; border-radius: inherit; }
 .quote-delta { color: #674832; }
 .inspection-steps { margin: 1.25rem 0 0; }
-.inspection-steps li { border-left: 3px solid #a5b39d; padding-left: .85rem; }
+.inspection-steps li { border: 1px solid #a5b39d; padding: .85rem; }
 .inspection-steps li:nth-child(2) { border-color: #b8845e; }
 .family-update { margin-top: 1rem; background: #293d33; color: #fff; }
 .family-update ol { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 330" font-family="Segoe UI,Arial,sans-serif">
+  <defs>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#dcd7ca" stroke-width=".8"/></pattern>
+  </defs>
+  <rect width="420" height="330" rx="12" fill="#f3efe5"/>
+  <rect width="420" height="330" rx="12" fill="url(#grid)"/>
+  <path d="M250 330 Q274 313 291 309 T327 297 Q335 299 341 289 T368 277 Q383 282 390 267 T420 248 V318 Q420 330 408 330Z" fill="#cdded9" stroke="#9db8af"/>
+  <g fill="#535a4c" text-anchor="middle"><text x="389" y="28" font-size="12">N</text><path d="m389 34-5 16 5-4 5 4Z"/></g>
+  <g fill="#fcfaf4" stroke="#9a6546" stroke-width="2.5">
+    <circle cx="202" cy="50" r="5"/><circle cx="124" cy="116" r="5"/><circle cx="80" cy="165" r="5"/>
+  </g>
+  <g fill="#344238" stroke="#f3efe5" stroke-width="2">
+    <circle cx="231" cy="156" r="5"/><circle cx="241" cy="178" r="5"/>
+    <circle cx="266" cy="190" r="5"/><circle cx="227" cy="213" r="5"/>
+    <circle cx="305" cy="205" r="10"/><circle cx="305" cy="205" r="3" fill="#fff" stroke="none"/>
+  </g>
+  <g fill="none" stroke="#737d6e" stroke-width="1.2">
+    <path d="m231 156 13-18h12m-18 40h-21m49 12 12-16h12m-63 39-12 18h-12"/>
+  </g>
+  <g fill="#303d35" font-size="16">
+    <text x="214" y="55">Campinas</text><text x="136" y="121">Itu</text>
+    <text x="80" y="190" text-anchor="middle">Sorocaba</text>
+    <text x="259" y="136">Santana de</text><text x="259" y="153">Parnaíba</text>
+    <text x="212" y="182" text-anchor="end">Barueri</text><text x="295" y="177">Osasco</text>
+    <text x="198" y="236" text-anchor="end">Cotia</text>
+    <text x="305" y="239" text-anchor="middle" font-size="21" font-weight="600">São Paulo</text>
+  </g>
+</svg>

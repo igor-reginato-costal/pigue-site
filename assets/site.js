@@ -20,6 +20,17 @@ const mastMenu = mast?.querySelector(".mast-menu");
 mastMenu?.addEventListener("click", event => {
   if (event.target.closest("a")) mastMenu.open = false;
 });
+if (mastMenu) {
+  document.addEventListener("keydown", event => {
+    if (mastMenu.open && event.key === "Escape") {
+      mastMenu.open = false;
+      mastMenu.querySelector("summary").focus();
+    }
+  });
+  document.addEventListener("click", event => {
+    if (mastMenu.open && !mastMenu.contains(event.target)) mastMenu.open = false;
+  });
+}
 
 const cover = document.querySelector(".entry-cover");
 if (cover) {

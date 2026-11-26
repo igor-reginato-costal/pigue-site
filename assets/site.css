@@ -337,6 +337,12 @@ html:has(#visit-dialog[open]){overflow:hidden}
 .collection-link{margin-top:28px}
 .territories,.ceiling{padding-block:clamp(40px,6vw,90px);border-top:1px solid var(--line)}
 .territories{display:grid;grid-template-columns:1fr 1.35fr;gap:28px}
+.coverage-map{margin:1.2rem 0 0;max-width:32rem}
+.coverage-map img{display:block;width:100%;height:auto}
+.coverage-map figcaption{display:flex;flex-wrap:wrap;gap:.4rem 1.15rem;margin-top:.7rem;font-size:.86rem}
+.coverage-map figcaption span{display:inline-flex;align-items:center;gap:.4rem}
+.coverage-map figcaption span::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:#344238}
+.coverage-map figcaption span+span::before{background:transparent;border:2px solid #9a6546;box-sizing:border-box}
 .territories p,.ceiling>p{max-width:62ch;margin-top:12px}
 .territories h3:not(:first-child){margin-top:28px}
 .wool-sample{margin-top:24px}.wool-sample img{width:150px;height:84px;object-fit:cover}
@@ -385,7 +391,7 @@ html:has(.sample-dialog[open]){overflow:hidden}
   --paper:#faf9f5;--ink:#202921;--green:#26392f;--muted:#596058;--line:#d5d6cd;
   --forest:#22382e;
   --gutter:clamp(22px,5.7vw,104px);
-  --body-size:clamp(1rem,1.15vw,1.125rem);--caption-size:.82rem;
+  --body-size:clamp(1rem,1.15vw,1.125rem);--caption-size:.875rem;
 }
 body{line-height:1.62;text-transform:lowercase}
 button,select,option,input::placeholder,textarea::placeholder{text-transform:lowercase}
@@ -570,14 +576,14 @@ footer { background:var(--forest); color:#f5f1e8; }
 }
 .method-band h2{max-width:13ch}
 .contact-grid form label:not(.contact-choice){font-weight:400}
-.contact-grid input:not([type=checkbox]),.contact-grid select,.contact-grid textarea{border:0;border-bottom:1px solid #929a90;background:#f1f1eb}
+.contact-grid input:not([type=checkbox]),.contact-grid select,.contact-grid textarea{border:1px solid #929a90;background:#f1f1eb}
 .intro{padding-top:clamp(56px,7vw,120px)}.intro>p:last-child{max-width:50ch}
 .essay header{text-align:center}.essay h1{margin-inline:auto}.essay header .text-link{margin-inline:auto}
 .essay-photo{width:100%;padding:0}.essay-photo figcaption{padding-inline:var(--gutter)}
 .journal-archive .journal-card:first-child{grid-column:span 2}
 .journal-archive .journal-card:first-child img{aspect-ratio:2.05}
 .journal-archive .journal-card:nth-child(2){align-self:end}
-.journal-card .meta{font-size:.78rem}
+.journal-card .meta{font-size:var(--caption-size)}
 .facts{background:#e9ece4}.chapter-next{padding-top:26px}
 @media(prefers-reduced-motion:no-preference) and (hover:hover){
   .project-image img,.journal-card img{transition:filter .4s ease}
@@ -857,9 +863,27 @@ main:has(> #colecao) > .invitation {
 .scene-break::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top,rgba(15,22,18,.86),transparent 65%); }
 .scene-break > div, .residence-view figcaption { padding: clamp(28px,6vw,96px) var(--gutter); }
 .scene-break h2, .essay-cover h1, .arrival-copy h1 { font: 400 clamp(2.5rem,5vw,5.2rem)/1.06 Spectral,Georgia,serif; color: inherit; max-width: 20ch; margin: 12px 0; overflow-wrap:break-word; }
+.scene-break.diary-cover {
+  min-height: 0;
+  height: calc(100vh - var(--mast-space, var(--mast-height)));
+  height: calc(100dvh - var(--mast-space, var(--mast-height)));
+  grid-template-rows: auto 1fr;
+  padding: clamp(12px, 3vh, 32px) var(--gutter) clamp(16px, 4vh, 48px);
+}
+.diary-cover::before { background: linear-gradient(to bottom, #10181288, transparent 32%), linear-gradient(to top, #101812df, transparent 72%); }
+.diary-cover > h1 { color: inherit; margin: 0; font-size: clamp(22px, 2.2vw, 32px); }
+.diary-cover > div { padding: 0; }
+.diary-cover h2 { max-width: 32ch; font-size: clamp(2rem, min(5vw, 8vh), 5rem); text-wrap: balance; }
+@media (max-height: 490px) {
+  .diary-cover > div > p:not(.kicker) { display: none; }
+  .diary-cover h2 { margin-block: .15em; }
+}
 .diary-cover h2 a { color:inherit; text-decoration:none; }
 .diary-cover h2 a:hover { text-decoration:underline; }
-.essay-cover .meta { margin-top:18px; }
+.essay-cover { min-height: var(--chapter-height, 100vh); }
+.essay-cover h1 { margin-inline: auto; }
+.essay .essay-cover .meta { margin: 18px auto 6px; color: inherit; }
+.scene-break :focus-visible { outline-color: #fff; }
 .residence-view figcaption { box-sizing:content-box; max-width:35ch; font:400 clamp(1.6rem,3vw,3.3rem)/1.16 Spectral,Georgia,serif; }
 .scene-break p, .scene-break .text-link { color: inherit; }
 .scene-break p:not(.kicker) { max-width: 45ch; }
@@ -895,12 +919,18 @@ main:has(> #colecao) > .invitation {
 }
 
 /* Rosas em tom sobre tom nos fundos de leitura. */
+main:has(> .diary-cover),
 .home-invitation > div,
 #lugar-e-rotina,
 .residence-gallery#luminotecnica {
   position: relative;
   isolation: isolate;
   background-color: var(--rose-paper);
+}
+main:has(> .diary-cover) {
+  --rose-paper: #f5f1e8;
+  --rose-line: #e8e1d5;
+  --rose-size: clamp(260px, 34vw, 540px);
 }
 .home-invitation > div {
   --rose-paper: #f5f1e8;
@@ -919,6 +949,7 @@ main:has(> #colecao) > .invitation {
   --rose-line: #e6dad2;
   --rose-size: clamp(270px, 42vw, 680px);
 }
+main:has(> .diary-cover)::before,
 .home-invitation > div::before,
 #lugar-e-rotina::before,
 .residence-gallery#luminotecnica::before {
