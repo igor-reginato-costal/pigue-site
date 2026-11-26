@@ -1,3 +1,15 @@
+const english = document.documentElement.lang === "en";
+function copy(portuguese, englishText) {
+  return english ? englishText : portuguese;
+}
+function preferenceLabel(value) {
+  return english ? (window.piguePreferenceLabels?.[value] || value) : value;
+}
+for (const link of document.querySelectorAll(".language-switch")) {
+  link.search = location.search;
+  link.hash = location.hash;
+  link.addEventListener("click", () => { link.hash = location.hash; });
+}
 const mast = document.querySelector(".mast");
 if (mast && typeof ResizeObserver === "function") {
   new ResizeObserver(() => {
@@ -100,7 +112,7 @@ if (dialog && typeof dialog.showModal === "function") {
     arrivalTitle.textContent = project ? project.querySelector("h3").textContent : originalArrival.title;
     const isReference = card?.classList.contains("visit-reference");
     arrivalLink.href = isReference ? "#residencias" : project?.querySelector(".project-image").href || originalArrival.href;
-    arrivalLink.textContent = isReference ? "Explorar a referência" : originalArrival.linkText;
+    arrivalLink.textContent = isReference ? copy("Explorar a referência", "Explore this design") : originalArrival.linkText;
     caption.textContent = project ? project.querySelector(".kicker").textContent : originalArrival.caption;
   }
   const preferences = document.getElementById("visit-form");
@@ -170,7 +182,7 @@ if (dialog && typeof dialog.showModal === "function") {
     const samples = paletteSamples.get(palette);
     palettePreview.hidden = !samples;
     if (samples) {
-      palettePreview.querySelector("figcaption").textContent = "Sua paleta · " + palette;
+      palettePreview.querySelector("figcaption").textContent = copy("Sua paleta · ", "Your palette · ") + preferenceLabel(palette);
       palettePreview.querySelector("div").replaceChildren(samples.cloneNode(true));
     }
     document.getElementById("tom-" + (paintTones[palette] ?? 1)).checked = true;
@@ -187,8 +199,8 @@ if (dialog && typeof dialog.showModal === "function") {
     clear.hidden = !visit;
     addPalette.hidden = !visit;
     setName.hidden = !visit;
-    setName.textContent = visit?.nome ? "Alterar meu nome" : "Adicionar meu nome";
-    edit.textContent = visit ? "Rever minhas escolhas" : "Escolher minhas preferências";
+    setName.textContent = visit?.nome ? copy("Alterar meu nome", "Change my name") : copy("Adicionar meu nome", "Add my name");
+    edit.textContent = visit ? copy("Rever minhas escolhas", "Review my choices") : copy("Escolher minhas preferências", "Choose my preferences");
     if (!visit) {
       showPalette(null);
       showArrival(null);
@@ -197,7 +209,7 @@ if (dialog && typeof dialog.showModal === "function") {
       grid.replaceChildren(...originals);
       return;
     }
-    title.textContent = "sua seleção de residências";
+    title.textContent = copy("sua seleção de residências", "your selection of homes");
     if (visit.nome) {
       const name = document.createElement("span");
       name.className = "visitor-text";
@@ -206,16 +218,16 @@ if (dialog && typeof dialog.showModal === "function") {
     }
     const selection = studiesFor(visit.imovel, visit.estilo);
     showArrival(visit.imovel === "Todos" && visit.estilo === "Todos" ? null : selection[0]);
-    const criteria = [visit.imovel,visit.estilo].filter(v => v !== "Todos").join(" · ");
-    intro.textContent = selection.length ? (criteria || "Todos os imóveis e estilos.") :
-      "Ainda não há um estudo para essa combinação. Você pode rever suas escolhas.";
+    const criteria = [visit.imovel,visit.estilo].filter(v => v !== "Todos").map(preferenceLabel).join(" · ");
+    intro.textContent = selection.length ? (criteria || copy("Todos os imóveis e estilos.", "All homes and styles.")) :
+      copy("Ainda não há um estudo para essa combinação. Você pode rever suas escolhas.", "We haven’t explored that combination yet. You can change your choices.");
     grid.replaceChildren(...selection.map(c => c.content.cloneNode(true)));
     const tones = visit.paletas.filter(p => paletteSamples.has(p));
     for (const palette of tones) {
       const link = document.createElement("a");
       link.className = "text-link";
       link.href = "#paleta-da-visita";
-      link.textContent = "Paleta: " + palette;
+      link.textContent = copy("Paleta: ", "Palette: ") + preferenceLabel(palette);
       link.addEventListener("click", () => showPalette(palette));
       links.append(link);
     }
@@ -313,27 +325,27 @@ if (form) {
     const stage = fields.get("momento");
     const note = fields.get("mensagem").trim();
     const selected = visit && consent?.checked ?
-      [visit.nome && !name ? visit.nome : "", visit.imovel, visit.estilo, ...visit.paletas].filter(v => v && v !== "Todos").join(" · ") : "";
-    const reference = study.value && "Gostaria de conversar sobre o estudo " + study.selectedOptions[0].textContent + ".";
-    return ["Olá, equipe Piguê.", name && "Meu nome é " + name + ".", stage, reference, selected && "Minhas preferências: " + selected, note]
+      [visit.nome && !name ? visit.nome : "", ...[visit.imovel, visit.estilo, ...visit.paletas].filter(v => v !== "Todos").map(preferenceLabel)].filter(v => v && v !== "Todos").join(" · ") : "";
+    const reference = study.value && copy("Gostaria de conversar sobre o estudo ", "I’d like to discuss the design study ") + study.selectedOptions[0].textContent + ".";
+    return [copy("Olá, equipe Piguê.", "Hello, Piguê team."), name && copy("Meu nome é ", "My name is ") + name + ".", stage, reference, selected && copy("Minhas preferências: ", "My preferences: ") + selected, note]
       .filter(Boolean).join("\n\n");
   }
   form.addEventListener("submit", event => {
     event.preventDefault();
     const body = encodeURIComponent(message());
-    window.location.href = "mailto:" + address + "?subject=" + encodeURIComponent("Primeira conversa com a Piguê") + "&body=" + body;
-    feedback.textContent = "Revise e envie pelo seu aplicativo de e-mail. Você também pode copiar a mensagem e usar seu webmail.";
+    window.location.href = "mailto:" + address + "?subject=" + encodeURIComponent(copy("Primeira conversa com a Piguê", "My project enquiry for Piguê")) + "&body=" + body;
+    feedback.textContent = copy("Revise e envie pelo seu aplicativo de e-mail. Você também pode copiar a mensagem e usar seu webmail.", "Review and send the draft in your email app. You can also copy it into your webmail.");
   });
   document.getElementById("copy").addEventListener("click", async () => {
     const body = message();
     try {
       await navigator.clipboard.writeText(body);
-      feedback.textContent = "Mensagem copiada. Cole no seu e-mail para " + address + ".";
+      feedback.textContent = copy("Mensagem copiada. Cole no seu e-mail para ", "Message copied. Paste it into an email to ") + address + ".";
     } catch {
       const draft = document.createElement("span");
       draft.className = "visitor-text";
       draft.textContent = body;
-      feedback.replaceChildren(draft, ". destinatário: " + address);
+      feedback.replaceChildren(draft, copy(". destinatário: ", " · Send to ") + address);
     }
   });
 }
@@ -345,7 +357,6 @@ function initStyleCarousel(gallery) {
   const select = controls.querySelector("select");
   const toggle = controls.querySelector(".style-play");
   const paging = gallery.querySelector(".style-paging");
-  const pages = paging.querySelector(".style-pages");
   const counter = paging.querySelector(".style-count");
   const arrows = gallery.querySelector(".style-arrows");
   const status = gallery.querySelector("[role=status]");
@@ -366,7 +377,7 @@ function initStyleCarousel(gallery) {
 
   function setPlaying(value) {
     playing = value;
-    toggle.textContent = playing ? "Pausar carrossel" : "Reproduzir carrossel";
+    toggle.textContent = playing ? copy("Pausar carrossel", "Pause slideshow") : copy("Reproduzir carrossel", "Play slideshow");
     schedule();
   }
 
@@ -374,18 +385,16 @@ function initStyleCarousel(gallery) {
     index = (next + slides.length) % slides.length;
     slides.forEach((slide, i) => slide.setAttribute("aria-hidden", String(i !== index)));
     select.selectedIndex = index;
-    counter.textContent = "Imagem " + (index + 1) + " de " + slides.length;
-    Array.from(pages.children).forEach((button, i) => {
-      button.setAttribute("aria-current", String(i === index));
-    });
+    counter.textContent = copy("Imagem ", "Image ") + (index + 1) + copy(" de ", " of ") + slides.length;
     if (manual) {
       setPlaying(false);
-      status.textContent = select.options[index].text + ", estilo " + (index + 1) + " de " + slides.length;
+      status.textContent = select.options[index].text + copy(", estilo ", ", style ") + (index + 1) + copy(" de ", " of ") + slides.length;
     }
     schedule();
   }
 
   function chooseCategory(button) {
+    const previousStyle = slides[index]?.dataset.style;
     const category = button.dataset.category;
     categories.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
     slides = catalog.filter(slide => slide.dataset.category === category);
@@ -394,22 +403,15 @@ function initStyleCarousel(gallery) {
       if (slide.hidden) slide.setAttribute("aria-hidden", "true");
     });
     select.replaceChildren(...slides.map((slide, i) => new Option(slide.dataset.style, i)));
-    pages.replaceChildren(...slides.map((slide, i) => {
-      const page = document.createElement("button");
-      page.type = "button";
-      page.textContent = String(i + 1);
-      page.setAttribute("aria-label", "Imagem " + (i + 1) + ", " + slide.dataset.style);
-      page.addEventListener("click", () => show(i, true));
-      return page;
-    }));
-    show(0);
+    const match = slides.findIndex(slide => slide.dataset.style === previousStyle);
+    show(Math.max(0, match));
   }
 
   categories.forEach(button => {
     button.addEventListener("click", () => {
       if (button.getAttribute("aria-pressed") === "true") return;
       chooseCategory(button);
-      status.textContent = button.textContent + ", " + select.options[0].text + ", estilo 1 de " + slides.length;
+      status.textContent = button.textContent + ", " + select.options[index].text + copy(", estilo ", ", style ") + (index + 1) + copy(" de ", " of ") + slides.length;
     });
   });
   arrows.querySelectorAll("[data-step]").forEach(button => {
@@ -431,7 +433,7 @@ function initStyleCarousel(gallery) {
   chooseCategory(categories[0]);
   setPlaying(playing);
   gallery.classList.add("is-carousel");
-  gallery.setAttribute("aria-roledescription", "carrossel");
+  gallery.setAttribute("aria-roledescription", copy("carrossel", "carousel"));
   controls.hidden = false;
   paging.hidden = false;
   arrows.hidden = false;

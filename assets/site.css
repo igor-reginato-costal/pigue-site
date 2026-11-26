@@ -837,3 +837,13 @@ main:has(> #colecao) > .invitation {
 .diary-blog section>h2,.diary-blog .journal-grid{margin-bottom:1.5rem}
 .diary-lead img,.journal-card img,.essay-photo img{filter:blur(.55px)}
 @media(max-width:700px){.diary-lead{grid-template-columns:1fr;gap:1rem}.diary-blog .journal-grid{grid-template-columns:1fr}}
+
+.project-editorial{padding-block:clamp(2rem,5vw,5rem);border-top:1px solid var(--line);scroll-margin-top:6rem}
+.project-editorial>p,.project-editorial>details,.project-editorial>dl,.project-editorial>h3{max-width:72ch}
+.project-editorial h3{margin-top:2em}
+.project-editorial figure{margin:1.5rem 0;max-width:52rem}
+.project-editorial figure img{display:block;width:100%;max-height:30rem;object-fit:cover}
+.project-editorial figcaption{padding-top:.6rem;font-size:.9rem}
+.project-editorial details{padding:1rem 0;border-top:1px solid var(--line)}
+.project-editorial summary{cursor:pointer;font-weight:600}
+.obra-record dt{font-weight:600}.obra-record dd{margin:.35rem 0 1rem}
