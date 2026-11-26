@@ -464,6 +464,7 @@ if (brandRail) {
   for (const item of originals) {
     const copy = item.cloneNode(true);
     copy.setAttribute("aria-hidden", "true");
+    for (const link of copy.querySelectorAll("a")) link.tabIndex = -1;
     list.append(copy);
   }
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
