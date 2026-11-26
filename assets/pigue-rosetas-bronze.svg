@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="540" height="310" viewBox="0 0 1080 620" role="img" aria-label="Rosetas geométricas em trama hexagonal"><defs><path id="flor" d="M246 309 L299 214 L370 131 L457 183 L487 249 L517 313 L521 373 L428 416 L296 358 L246 309 M296 358 L296 215 L421 185 L483 246 L463 375 L378 441 L296 358 M297 271 L369 197 L471 236 L517 313 L463 375 L353 382 L297 271 M0 310 L180 0 L540 0 L720 310 L540 620 L180 620 L0 310
+M76 179 L314 0 L615 129 L657 418 L394 581 L118 509 L76 179
+M104 393 L179 104 L428 48 L635 259 L549 483 L289 515 L104 393
+M133 282 L291 80 L520 142 L595 360 L417 498 L220 408
+M289 515 L133 282
+M220 408 L237 150 L436 120 L507 211 L521 373 L487 442 L293 442 L229 259 L310 186 L457 183 L507 211
+M293 442 L220 408
+M229 259 L246 309
+M378 441 L428 416
+M336 344 L343 224 L438 224 L455 332 L450 377 L336 344
+M336 344 L393 225 L447 290 L366 334 L455 334
+M366 334 L385 245 L422 302 L372 302
+M438 224 L471 236 L450 377" fill="none" stroke="#B49B82" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><pattern id="repeticao" width="1080" height="620" patternUnits="userSpaceOnUse"><use xlink:href="#flor" x="0" y="0"/><use xlink:href="#flor" x="540" y="-310"/><use xlink:href="#flor" x="540" y="310"/><use xlink:href="#flor" x="-540" y="-310"/><use xlink:href="#flor" x="-540" y="310"/></pattern></defs><rect x="-1080" y="-620" width="4320" height="3100" fill="#F5F1E8"/><rect x="-1080" y="-620" width="4320" height="3100" fill="url(#repeticao)"/></svg>

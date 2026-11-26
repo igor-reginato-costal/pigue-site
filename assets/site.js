@@ -455,3 +455,98 @@ if (footerMap) {
   });
 }
 
+
+const brandRail = document.querySelector(".brand-rail");
+if (brandRail) {
+  const viewport = brandRail.querySelector(".brand-window");
+  const list = viewport.querySelector("ul");
+  const originals = Array.from(list.children);
+  for (const item of originals) {
+    const copy = item.cloneNode(true);
+    copy.setAttribute("aria-hidden", "true");
+    list.append(copy);
+  }
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const canHover = matchMedia("(hover: hover)");
+  const pixelsPerSecond = 13;
+  let motion;
+  let cycleWidth = 0;
+  let visible = false;
+  let interacting = false;
+  let resumeTimer;
+
+  function pause() {
+    if (!motion) return;
+    const offset = ((motion.currentTime || 0) * pixelsPerSecond / 1000) % cycleWidth;
+    motion.cancel();
+    motion = null;
+    viewport.scrollLeft = offset;
+  }
+
+  function updateMotion() {
+    if (!visible || document.hidden || reduceMotion.matches || interacting ||
+        (canHover.matches && brandRail.matches(":hover")) || brandRail.matches(":focus-within")) {
+      pause();
+      return;
+    }
+    if (motion || !cycleWidth) return;
+    const offset = viewport.scrollLeft % cycleWidth;
+    viewport.scrollLeft = 0;
+    motion = list.animate(
+      [{ transform: "translateX(0)" }, { transform: `translateX(-${cycleWidth}px)` }],
+      { duration: cycleWidth * 1000 / pixelsPerSecond, iterations: Infinity, easing: "linear" }
+    );
+    motion.currentTime = offset * 1000 / pixelsPerSecond;
+  }
+
+  function hold() {
+    clearTimeout(resumeTimer);
+    interacting = true;
+    pause();
+  }
+  function release() {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { interacting = false; updateMotion(); }, 1200);
+  }
+  function scrollBrands(direction) {
+    if (!cycleWidth) return;
+    hold();
+    let left = viewport.scrollLeft % cycleWidth;
+    if (direction < 0 && left < viewport.clientWidth - 1) left += cycleWidth;
+    viewport.scrollLeft = left;
+    viewport.scrollTo({ left: left + direction * viewport.clientWidth,
+      behavior: reduceMotion.matches ? "instant" : "smooth" });
+    release();
+  }
+  for (const button of brandRail.querySelectorAll("button")) {
+    button.hidden = false;
+    button.addEventListener("click", () => scrollBrands(Number(button.dataset.step)));
+  }
+  viewport.addEventListener("keydown", event => {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    event.preventDefault();
+    scrollBrands(event.key === "ArrowRight" ? 1 : -1);
+  });
+  brandRail.addEventListener("pointerenter", updateMotion);
+  brandRail.addEventListener("pointerleave", updateMotion);
+  brandRail.addEventListener("focusin", pause);
+  brandRail.addEventListener("focusout", () => requestAnimationFrame(updateMotion));
+  viewport.addEventListener("pointerdown", hold);
+  window.addEventListener("pointerup", () => { if (interacting) release(); });
+  viewport.addEventListener("pointercancel", release);
+  viewport.addEventListener("wheel", () => { hold(); release(); }, { passive: true });
+  viewport.addEventListener("scroll", () => { if (interacting) release(); }, { passive: true });
+  document.addEventListener("visibilitychange", updateMotion);
+  reduceMotion.addEventListener("change", updateMotion);
+  new ResizeObserver(() => {
+    pause();
+    cycleWidth = list.children[originals.length].getBoundingClientRect().left -
+      list.firstElementChild.getBoundingClientRect().left;
+    updateMotion();
+  }).observe(viewport);
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    updateMotion();
+  }).observe(brandRail);
+}
+
