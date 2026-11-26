@@ -995,3 +995,19 @@ main:has(.residence-frame) > section:is(.story,.facts,.project-editorial) { min-
     max-inline-size: 100%;
   }
 }
+
+main > section:is(.contact-directory,.service-atlas) { display:block; min-height:0; padding-block:clamp(3rem,6vw,6rem); scroll-margin-top:5rem; }
+.partner-list,.atlas-pair,.atlas-details { display:grid; gap:clamp(1.5rem,3vw,3.5rem); margin-top:2rem; }
+.partner-list { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.partner-list article { display:grid; align-content:start; justify-items:start; gap:.65rem; }
+.partner-list a { overflow-wrap:anywhere; }
+.partner-list .button { margin-top:.55rem; }
+.atlas-pair,.atlas-details { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.atlas-pair figure { margin:0; }
+.atlas-pair img { display:block; width:100%; height:auto; margin-block:1rem .55rem; }
+.atlas-pair figcaption,.service-atlas small { font-size:.9rem; }
+.atlas-pair figcaption::before { content:""; display:inline-block; width:.7em; height:.7em; margin-right:.55em; background:#98673e; border-radius:50%; }
+.atlas-pair figure+figure figcaption::before { background:#364e40; }
+.service-atlas small { display:block; margin-top:1rem; color:#596052; }
+.atlas-details p { margin-top:.8em; max-width:59ch; }
+@media(max-width:800px) { .partner-list,.atlas-pair,.atlas-details { grid-template-columns:1fr; } }
