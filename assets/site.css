@@ -825,3 +825,15 @@ main:has(> #colecao) > .invitation {
   main:has(> #colecao) .chapter-type { padding-block: 28px; }
   main:has(> #colecao) .chapter-cover figure { min-height: clamp(178px, 48vw, 300px); }
 }
+
+.study-choices{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem}
+.diary-blog{padding-block:clamp(2rem,4vw,4rem)}
+.diary-blog header{margin-bottom:1.4rem}
+.diary-lead{display:grid;grid-template-columns:1.4fr 1fr;align-items:center;gap:clamp(1.5rem,4vw,4rem);border-block:1px solid #cbcabe;padding-block:1.5rem}
+.diary-lead img{display:block;width:100%;aspect-ratio:1.85;object-fit:cover}
+.diary-lead h2 a{text-decoration:none;color:inherit}
+.diary-lead p{max-width:48ch}
+.diary-blog section{margin-top:3rem}
+.diary-blog section>h2,.diary-blog .journal-grid{margin-bottom:1.5rem}
+.diary-lead img,.journal-card img,.essay-photo img{filter:blur(.55px)}
+@media(max-width:700px){.diary-lead{grid-template-columns:1fr;gap:1rem}.diary-blog .journal-grid{grid-template-columns:1fr}}
