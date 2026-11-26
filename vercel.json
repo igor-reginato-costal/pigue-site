@@ -1,0 +1,15 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:section(.+)/index.html",
+      "destination": "/:section/",
+      "permanent": true
+    }
+  ]
+}
