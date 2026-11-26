@@ -1,0 +1,64 @@
+@property --sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --tilt {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #071814; color: #fff; }
+.cover {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.dial {
+  position: absolute;
+  inset: -18px;
+  z-index: -1;
+  pointer-events: none;
+  background: #061511;
+}
+.dial::before, .dial::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/capa-mojito.webp") center / cover no-repeat;
+}
+.dial::before { filter: brightness(.75) saturate(.87); opacity: .86; }
+.dial::after {
+  /* Both reflections pivot at the pole engraved into the photographed texture. */
+  --pole: 50% calc(50% - max(1.8vw, 2.7svh) - 1px);
+  filter: url("facetas.svg#arestas") saturate(.72) brightness(1.56) contrast(1.01);
+  opacity: .9;
+  mask-image:
+    repeating-conic-gradient(from calc(90deg + var(--sweep) + var(--tilt)) at var(--pole),
+      black 0deg, rgb(0 0 0 / 91%) 8deg, rgb(0 0 0 / 48%) 20deg,
+      rgb(0 0 0 / 12%) 38deg, transparent 58deg 124deg,
+      rgb(0 0 0 / 12%) 143deg, rgb(0 0 0 / 52%) 164deg, black 180deg),
+    radial-gradient(ellipse at var(--pole), transparent, rgb(0 0 0 / 80%) 18%, black 38%, rgb(0 0 0 / 70%) 71%, rgb(0 0 0 / 24%) 100%);
+  mask-composite: intersect;
+}
+.cover h1 { margin: 0; font: 400 14px/1.5 system-ui, sans-serif; }
+.cover a { display: block; color: inherit; padding: 16px; text-decoration: none; }
+.cover a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+.cover img { display: block; width: clamp(180px, 25vw, 360px); height: auto; }
+.cover span { display: block; margin-top: 1rem; }
+.cover a:hover span { text-decoration: underline; text-underline-offset: .3em; }
+@media (prefers-reduced-motion: no-preference) {
+  .dial { transition: --tilt 75ms ease-out; }
+  .dial::after { animation: dial-light 6.5s ease-in-out infinite alternate; }
+  .dial.tracking::after { animation-play-state: paused; }
+}
+@keyframes dial-light {
+  from { --sweep: -8deg; }
+  to { --sweep: 35deg; }
+}

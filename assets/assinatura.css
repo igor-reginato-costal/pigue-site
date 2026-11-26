@@ -1,0 +1,48 @@
+.pigue-lettering {
+  display: inline-block;
+  position: relative;
+  vertical-align: -.29em;
+  width: 3.15em;
+  aspect-ratio: 670 / 300;
+}
+.pigue-lettering::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  mask: url("/assets/pigue-tinta-compacta.svg") center / contain no-repeat;
+}
+.pigue-lettering > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.diary-blog h1 .pigue-lettering {
+  vertical-align: -.47em;
+}
+.mast nav .pigue-lettering {
+  width: 96px;
+  vertical-align: middle;
+}
+.mast nav .pigue-lettering::before {
+  mask-image: url("/assets/pigue-claro-compacto.svg");
+}
+.kicker .pigue-lettering { width: 96px; vertical-align: -.65em; }
+.arrival-letter > .kicker .pigue-lettering {
+  width: clamp(158px, 13vw, 204px);
+  vertical-align: middle;
+}
+.arrival-letter > .kicker .pigue-lettering::before {
+  mask-image: url("/assets/pigue-tinta-pequena.svg");
+}
+p:not(.kicker) .pigue-lettering {
+  width: 2.85em;
+  height: 0;
+  vertical-align: baseline;
+}
+p:not(.kicker) .pigue-lettering::before {
+  inset: auto 0 -.43em;
+  aspect-ratio: 670 / 300;
+}

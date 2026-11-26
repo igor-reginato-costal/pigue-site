@@ -333,7 +333,7 @@ if (form) {
   form.addEventListener("submit", event => {
     event.preventDefault();
     const body = encodeURIComponent(message());
-    window.location.href = "mailto:" + address + "?subject=" + encodeURIComponent(copy("Primeira conversa com a Piguê", "My project enquiry for Piguê")) + "&body=" + body;
+    window.location.href = "mailto:" + address + "?subject=" + encodeURIComponent(copy("Primeira conversa com a Piguê", "My project inquiry for Piguê")) + "&body=" + body;
     feedback.textContent = copy("Revise e envie pelo seu aplicativo de e-mail. Você também pode copiar a mensagem e usar seu webmail.", "Review and send the draft in your email app. You can also copy it into your webmail.");
   });
   document.getElementById("copy").addEventListener("click", async () => {
@@ -385,7 +385,7 @@ function initStyleCarousel(gallery) {
     index = (next + slides.length) % slides.length;
     slides.forEach((slide, i) => slide.setAttribute("aria-hidden", String(i !== index)));
     select.selectedIndex = index;
-    counter.textContent = copy("Imagem ", "Image ") + (index + 1) + copy(" de ", " of ") + slides.length;
+    counter.textContent = (index + 1) + copy(" de ", " of ") + slides.length;
     if (manual) {
       setPlaying(false);
       status.textContent = select.options[index].text + copy(", estilo ", ", style ") + (index + 1) + copy(" de ", " of ") + slides.length;

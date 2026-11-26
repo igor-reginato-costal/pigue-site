@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Piguê · Metal polido</title>
+  <link rel="stylesheet" href="../capa.css">
+  <style>
+    .cover { background: #030c0a; }
+    .metal {
+      position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: #071a16 url("chapa.webp") center / cover no-repeat;
+      filter: blur(.7px) brightness(.84);
+    }
+    .metal::before, canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .metal::before {
+      content: ""; background: inherit; filter: brightness(1.35);
+      mask-image: repeating-conic-gradient(from var(--lamp, 90deg) at 50% calc(50% - max(1.73vw, 2.6svh)), #000, transparent 45deg 135deg, #000 180deg);
+    }
+    .lit .metal::before { display: none; }
+    canvas { opacity: 0; }
+    .lit canvas { opacity: 1; }
+  </style>
+  <script type="module" src="metal.js"></script>
+<link rel="alternate" hreflang="pt-BR" href="https://www.pigue.com.br/testes/metal-polido/"><link rel="alternate" hreflang="en" href="https://www.pigue.com.br/en/testes/metal-polido/"><link rel="alternate" hreflang="x-default" href="https://www.pigue.com.br/testes/metal-polido/"><link rel="stylesheet" href="/assets/assinatura.css"></head>
+<body>
+  <main class="cover">
+    <div class="metal" aria-hidden="true"><canvas></canvas></div>
+    <h1><a href="/#construcao" aria-label="Piguê, entrar no site">
+      <img src="/assets/pigue-claro.svg" width="670" height="300" alt="Piguê">
+      <span>Entrar</span>
+    </a></h1>
+  <a class="language-switch" href="/en/testes/metal-polido/" lang="en" hreflang="en">English</a></main>
+</body>
+</html>
