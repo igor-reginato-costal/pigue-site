@@ -732,14 +732,28 @@ footer { background:var(--forest); color:#f5f1e8; }
   list-style: none;
 }
 .brand-rail li {
-  flex: none;
+  flex: 0 0 calc(100% / var(--brand-count, 7));
+  min-width: 0;
   height: 72px;
-  padding-inline: clamp(16px, 2.3vw, 42px);
+  padding-inline: 10px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
 }
-.brand-rail li img { display: block; width: auto; max-width: none; height: 28px; opacity: .73; }
-.brand-rail li a { display: grid; place-items: center; min-height: 44px; }
+.brand-rail li img {
+  width: 100%;
+  max-width: 148px;
+  height: 28px;
+  object-fit: contain;
+  opacity: .73;
+}
+.brand-rail li img[alt="CAIXA"] { height: 22px; }
+.brand-rail li img.brand-stacked { height: 54px; }
+.brand-rail li a { width: 100%; min-height: 44px; display: grid; place-items: center; }
+@media (max-width: 1430px) { .brand-rail { --brand-count: 6; } }
+@media (max-width: 1130px) { .brand-rail { --brand-count: 5; } }
+@media (max-width: 940px) { .brand-rail { --brand-count: 4; } }
+@media (max-width: 760px) { .brand-rail { --brand-count: 3; } }
 .brand-rail button {
   flex: 0 0 44px;
   height: 44px;
@@ -764,9 +778,10 @@ footer { background:var(--forest); color:#f5f1e8; }
 .brand-rail button[data-step="-1"] span { transform: rotate(-135deg); }
 .brand-rail :focus-visible { outline: 2px solid #977456; outline-offset: -2px; }
 @media (max-width: 600px) {
-  .brand-rail { padding-inline: 3px; gap: 0; }
-  .brand-rail li { height: 58px; padding-inline: 16px; }
-  .brand-rail li img { height: clamp(17px, 5.2vw, 23px); }
+  .brand-rail { --brand-count: 2; padding-inline: 3px; gap: 0; }
+  .brand-rail li { height: 62px; padding-inline: 6px; }
+  .brand-rail li img { height: 26px; max-width: 124px; }
+  .brand-rail li img.brand-stacked { height: 46px; }
 }
 
 /* Na listagem de residências, cada estudo acompanha a altura do conteúdo. */
